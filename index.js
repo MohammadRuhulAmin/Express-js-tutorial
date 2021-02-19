@@ -1,29 +1,24 @@
 const express = require('express');
-const path =require('path');
+const path    = require('path');
+const server = new express();
 
-const app = new express();
+const  PORT = process.env.PORT || 3000;
+server.listen(PORT,function(){
+    console.log(`Server started at ${PORT}`);
+});
 
-const PORT = 5000 || process.env.PORT;
+server.get('/',function(req,res){
+    res.sendFile(path.join(__dirname,'myfiles','file_1.html'));
+});
 
+server.get('/index',(req,res)=>{
+    res.sendFile(path.join(__dirname,'myfiles/aboutme','aboutme.html'));
+});
 
-app.listen(PORT,()=>{
-    console.log(PORT + " HAS started! ");
+server.get('/myIndex',function(req,res){
+    res.sendFile(path.join(__dirname,'myInfo','x.html'));
 });
 
 
 
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public','index.html'));
-});
 
-app.get('/index',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public','index_2.html'));
-});
-
-app.get('/index/myInfo',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public/myInfo','index_3.html'));
-});
-
-app.get('/myIndex/myotherInfo',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public/myInfo','index_4.html'));
-});
