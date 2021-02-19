@@ -31,3 +31,31 @@ server.get('/index/info',(req,res)=>{
 });
 
 server.use(express.static(path.join(__dirname,'AboutMyFolder')));
+
+const students = [
+    {
+        "name":"Ruhul amin",
+        "email":"ruhul@gmail.com",
+        "contact":"0140-3288711"
+    },
+    {
+        "name":"Ruhul amin",
+        "email":"ruhul@gmail.com",
+        "contact":"0140-3288711"
+    },
+    {
+        "name":"Ruhul amin",
+        "email":"ruhul@gmail.com",
+        "contact":"0140-3288711"
+    }
+
+];
+
+server.get('/api/myInfo',(req,res)=>{
+    res.json(students);
+});
+
+
+
+
+
