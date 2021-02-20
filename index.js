@@ -1,60 +1,55 @@
 const express = require('express');
-const path    = require('path');
 const server = new express();
+const path = require('path');
+const PORT = process.env.PORT || 5000;
+server.listen(PORT,()=>{
+    console.log(`server started at ${PORT}`);
+});
 
+const logger = (req,res,next)=>{
+    console.log('this is hit');
+    next();
+}
+const myLog = (req,res,next)=>{
+    console.log('this is my log');
+    next(); 
+}
+// init middleware!
+server.use(logger);
 
-const  PORT = process.env.PORT || 3000;
-server.listen(PORT,function(){
-    console.log(`Server started at ${PORT}`);
+server.get('/hi-middleware',(req,res)=>{
+    res.sendFile(path.join(__dirname,'myAppInfo','index-n.html'));
 });
 
 
-server.get('/',function(req,res){
-    res.sendFile(path.join(__dirname,'myfiles','file_1.html'));
-});
-
-
-server.get('/index',(req,res)=>{
-    res.sendFile(path.join(__dirname,'myfiles/aboutme','aboutme.html'));
-});
-
-
-
-server.get('/myIndex',function(req,res){
-    res.sendFile(path.join(__dirname,'myInfo','x.html'));
-});
-
-server.use(express.static(path.join(__dirname,'public')));
-server.use(express.static(path.join(__dirname,'myFile')));
-server.get('/index/info',(req,res)=>{
-    res.sendFile(path.join(__dirname,'Folder1','myFile.html'));
-});
-
-server.use(express.static(path.join(__dirname,'AboutMyFolder')));
-
-const students = [
+const myMan = [
     {
-        "name":"Ruhul amin",
-        "email":"ruhul@gmail.com",
-        "contact":"0140-3288711"
+        "name":"RE",
+        "const":"52222"
     },
     {
-        "name":"Ruhul amin",
-        "email":"ruhul@gmail.com",
-        "contact":"0140-3288711"
+        "name":"RE",
+        "const":"52222"
     },
     {
-        "name":"Ruhul amin",
-        "email":"ruhul@gmail.com",
-        "contact":"0140-3288711"
-    }
-
+        "name":"RE",
+        "const":"52222"
+    },
+    {
+        "name":"RE",
+        "const":"52222"
+    },
+    {
+        "name":"RE",
+        "const":"52222"
+    },
 ];
+const members = require('./Members');
+const studentsList = require('./studentsList');
 
-server.get('/api/myInfo',(req,res)=>{
-    res.json(students);
+server.get('/studentList/student/:id',(req,res)=>{
+   res.json(studentsList.filter(studentsList=>studentsList.id === parseInt(req.params.id)));
 });
-
 
 
 
